@@ -28,3 +28,35 @@ Questão 8: O \n fará ele pular a primeira linha, o \t realiza uma tabulação 
 "Primeiro programa"Pressione qualquer tecla para continuar. . . 
 
 Questão 9: 
+
+Questão 10:
+Resposta: Letra B. peso, Peso e PESO são variáveis diferentes.
+
+Questão 11:
+
+Constante Classificação (Tipo de Constante) Tipo Base em C
+\r [Sequência de escape] [ char ]
+2130 [ Constante inteira decimal ] [ int]
+-123 [ Constante inteira decimal negativa ] [ int]
+33.28 [ Constante de ponto flutuante ] [ double ]
+0XFA [ Constante inteira hexadecimal ] [ int ]
+0101 [ Constante inteira octal ] [ int ]
+2.0e30 [ Constante de ponto flutuante em notação científica ] [ double ]
+\xDC [ Sequência de escape hexadecimal ] [ char ]
+'\"' [ Constante de caractere ] [ char ]
+'\\' [ Constante de caractere ] [ char ]
+'F' [ Constante de caractere ] [ char ]
+0 [ Constante inteira decimal ] [ int ]
+'\0' [ Constante de caractere / caractere nulo ] [ char ]
+"F" [ Constante string ] [ char[] ]
+-4567.89 [ Constante de ponto flutuante negativa ] [ double ]
+
+Questão 12:
+a) int a; [ Correto ] [ Preencher ]
+b) float b; [ Correto ] [ Preencher ]
+c) double float c; [ Incorreto ] [ Preencher ]
+d) unsigned char d; [ Correto ] [ Preencher ]
+e) unsigned e; [ Correto ] [ Preencher ]
+f) long float f; [ Incorreto ] [ Preencher ]
+g) long g; [ Correto ] [ Preencher ]
+h) long double h; [ Correto ] [ Preencher ]
