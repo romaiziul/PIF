@@ -52,11 +52,34 @@ Constante Classificação (Tipo de Constante) Tipo Base em C
 -4567.89 [ Constante de ponto flutuante negativa ] [ double ]
 
 Questão 12:
-a) int a; [ Correto ] [ Preencher ]
-b) float b; [ Correto ] [ Preencher ]
-c) double float c; [ Incorreto ] [ Preencher ]
-d) unsigned char d; [ Correto ] [ Preencher ]
-e) unsigned e; [ Correto ] [ Preencher ]
-f) long float f; [ Incorreto ] [ Preencher ]
-g) long g; [ Correto ] [ Preencher ]
-h) long double h; [ Correto ] [ Preencher ]
+a) int a; [ Correto ] [ Variável 'a' como int ]
+b) float b; [ Correto ] [ Variável 'b' como float ]
+c) double float c; [ Incorreto ] [ double float não pode ser usada na mesma função, o correto seria separar as duas: double c; float c;  ]
+d) unsigned char d; [ Correto ] [ Variável 'd' como char sem sinal ]
+e) unsigned e; [ Correto ] [ Variável 'e' so pode receber valores não negativos(zero e positivos) ]
+f) long float f; [ Incorreto ] [ long float não é válido, longe é usado para inteiros ou melhor precisão da função double ]
+g) long g; [ Correto ] [ Variável 'g' como int ]
+h) long double h; [ Correto ] [ Variável 'h' como double com melhor precisão ]
+
+Questão 13:
+C
+
+Questão 14: 
+A
+
+Questão 15:
+C
+
+Questão 16:
+C
+
+Questão 17:
+a) Correto. A estrutura mesmo tendo espaços dentro do parênteses não interfere na compilação.
+b) Correto. Do mesmo modo que a letra a, os espaços não interferem na compilação.
+c) Correto. É o método "correto" normalmente utilizado.
+d) Incorreto. A função printf precisa dos parênteses.
+
+
+
+
+
