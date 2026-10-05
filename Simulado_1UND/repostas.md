@@ -39,3 +39,13 @@ d) !(i == j) || (y / x == 2.0) => Resultado: 1
 e) i == 2 && j == 4 || k == 0 => Resultado: 1
 2 == 2 && 3 == 4 || 0 == 0 => 
 1 && 0 || 1 => 1
+
+05. a) A diferença essencial do while e do-while é que no While a condição é testada antes do corpo, então o bloco pode executar zero vezes, caso a primeira opção ja seja falsa. Já no do-while, a condição é testada depois do corpo, fazendo com que o bloco execute pelo menos uma vez, mesmo que a primeira opção seja falsa.
+b) Quando o número de repetições é conhecido ou controlado por um contador.
+O for reúne inicialização, condição e incremento numa única linha, o que deixa o controle do laço visível de uma vez e evita esquecer o incremento (causa clássica de laço infinito em while).
+c) Erro de Lógica, compila normalmente, o while com o ";" é uma instrução vazia, ocupando o espaço de corpo do laço.
+Se a condição for true, o programa vai ficar gerar um laço infinito.
+
+06. a) "soma" foi compilada dentro do bloco for, não há a variável "soma" fora do bloco, logo, ele não existe fora do for, o que gera o erro "soma" undeclared.
+b)O laço executa i = 1 a 10, mas com desvios. Para i = 1, 2, 3 e 4 o corpo roda inteiro. Em i = 5, o continue pula o restante do corpo e vai direto ao incremento (i++), então a iteração 5 é descartada. Em i = 6 e 7 o corpo roda normalmente. Em i = 8, o break encerra o laço imediatamente, e 8, 9 e 10 nunca são executados. Além disso, int soma = 0; dentro do bloco reinicializa a variável a cada iteração, então mesmo que o escopo fosse válido, o acúmulo seria perdido.
+c)
