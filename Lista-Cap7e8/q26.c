@@ -2,7 +2,7 @@
 #define TAM 6
 typedef enum { PENDENTE,PAGO,ENTREGUE } Status;
 typedef struct { int codigo; float valor; Status status; } Pedido;
-const char *nomeStatus(Status s);
+void imprimeStatus(Status s);
 int main(void) {
     Pedido pedidos[TAM];
     int codigo,novo,encontrado=0;
@@ -30,10 +30,17 @@ int main(void) {
         quantidade[pedidos[i].status]++;
         totais[pedidos[i].status]+=pedidos[i].valor;
     }
-    for(int s=PENDENTE;s<=ENTREGUE;s++) printf("%s: %d pedidos, R$ %.2f\n",nomeStatus((Status)s),quantidade[s],totais[s]);
+    for(int s=PENDENTE;s<=ENTREGUE;s++) {
+        imprimeStatus((Status)s);
+        printf(": %d pedidos, R$ %.2f\n",quantidade[s],totais[s]);
+    }
     return 0;
 }
-const char *nomeStatus(Status s) {
-    switch(s) { case PENDENTE:return "Pendente"; case PAGO:return "Pago"; case ENTREGUE:return "Entregue"; }
-    return "Desconhecido";
+void imprimeStatus(Status s) {
+    switch(s) {
+        case PENDENTE: printf("Pendente"); break;
+        case PAGO: printf("Pago"); break;
+        case ENTREGUE: printf("Entregue"); break;
+        default: printf("Desconhecido");
+    }
 }
