@@ -13,8 +13,27 @@ int main(void) {
 }
 void lerNotas(float m[][4],int alunos) {
     for(int i=0;i<alunos;i++) for(int j=0;j<4;j++) {
-        do { printf("Aluno %d prova %d (0 a 10): ",i+1,j+1); if(scanf("%f",&m[i][j])!=1) { puts("Entrada invalida."); m[i][j]=-1; return; } } while(m[i][j]<0||m[i][j]>10);
+        while(1) {
+            printf("Aluno %d, prova %d (0 a 10): ",i+1,j+1);
+            if(scanf("%f",&m[i][j])!=1) {
+                int c;
+                if(feof(stdin)) { puts("Entrada encerrada."); return; }
+                while((c=getchar())!='\n'&&c!=EOF) {}
+                puts("Entrada invalida.");
+                continue;
+            }
+            if(m[i][j]>=0&&m[i][j]<=10) break;
+            puts("Nota deve estar entre 0 e 10.");
+        }
     }
 }
-float mediaAluno(float m[][4],int aluno) { float s=0; for(int j=0;j<4;j++) s+=m[aluno][j]; return s/4; }
-float mediaProva(float m[][4],int alunos,int prova) { float s=0; for(int i=0;i<alunos;i++) s+=m[i][prova]; return s/alunos; }
+float mediaAluno(float m[][4],int aluno) {
+    float soma=0;
+    for(int j=0;j<4;j++) soma+=m[aluno][j];
+    return soma/4;
+}
+float mediaProva(float m[][4],int alunos,int prova) {
+    float soma=0;
+    for(int i=0;i<alunos;i++) soma+=m[i][prova];
+    return soma/alunos;
+}
