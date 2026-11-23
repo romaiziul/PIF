@@ -9,7 +9,7 @@ typedef struct {
     int disponivel;
 } Livro;
 void lerLinha(char destino[],int capacidade);
-void cadastrarLivro(Livro livros[],int *quantidade);
+int cadastrarLivro(Livro livros[],int quantidade);
 void listarLivros(Livro livros[],int quantidade);
 int buscarPorTitulo(Livro livros[],int quantidade,const char titulo[]);
 void buscarLivro(Livro livros[],int quantidade);
@@ -24,7 +24,7 @@ int main(void) {
         if(scanf("%d",&opcao)!=1) { puts("Entrada invalida."); return 1; }
         int c; while((c=getchar())!='\n'&&c!=EOF) {}
         switch(opcao) {
-            case 1: cadastrarLivro(livros,&quantidade); break;
+            case 1: quantidade=cadastrarLivro(livros,quantidade); break;
             case 2: listarLivros(livros,quantidade); break;
             case 3: buscarLivro(livros,quantidade); break;
             case 4: emprestarLivro(livros,quantidade); break;
@@ -37,28 +37,30 @@ int main(void) {
 }
 void lerLinha(char destino[],int capacidade) {
     if(fgets(destino,capacidade,stdin)==NULL) { destino[0]='\0'; return; }
-    char *quebra=strchr(destino,'\n');
-    if(quebra) *quebra='\0';
+    int pos=(int)strcspn(destino,"\n");
+    if(destino[pos]=='\n') destino[pos]='\0';
     else { int c; while((c=getchar())!='\n'&&c!=EOF) {} }
 }
 int buscarPorTitulo(Livro livros[],int quantidade,const char titulo[]) {
     for(int i=0;i<quantidade;i++) if(strcmp(livros[i].titulo,titulo)==0) return i;
     return -1;
 }
-void cadastrarLivro(Livro livros[],int *quantidade) {
-    if(*quantidade>=MAX_LIVROS) { puts("Biblioteca cheia."); return; }
+int cadastrarLivro(Livro livros[],int quantidade) {
+    if(quantidade>=MAX_LIVROS) { puts("Biblioteca cheia."); return quantidade; }
     Livro novo;
     printf("Titulo: "); lerLinha(novo.titulo,TAM_TEXTO);
-    if(novo.titulo[0]=='\0') { puts("Titulo vazio nao permitido."); return; }
-    if(buscarPorTitulo(livros,*quantidade,novo.titulo)>=0) { puts("Titulo ja cadastrado."); return; }
+    if(novo.titulo[0]=='\0') { puts("Titulo vazio nao permitido."); return quantidade; }
+    if(buscarPorTitulo(livros,quantidade,novo.titulo)>=0) { puts("Titulo ja cadastrado."); return quantidade; }
     printf("Autor: "); lerLinha(novo.autor,TAM_TEXTO);
     printf("Ano: ");
-    if(scanf("%d",&novo.ano)!=1) { puts("Ano invalido."); return; }
+    if(scanf("%d",&novo.ano)!=1) { puts("Ano invalido."); return quantidade; }
     int c; while((c=getchar())!='\n'&&c!=EOF) {}
-    if(novo.ano<=0) { puts("Ano invalido."); return; }
+    if(novo.ano<=0) { puts("Ano invalido."); return quantidade; }
     novo.disponivel=1;
-    livros[(*quantidade)++]=novo;
+    livros[quantidade]=novo;
+    quantidade++;
     puts("Livro cadastrado.");
+    return quantidade;
 }
 void listarLivros(Livro livros[],int quantidade) {
     if(quantidade==0) { puts("Nenhum livro cadastrado."); return; }
