@@ -1,10 +1,14 @@
-01. a) O protótipo é `float celsius(float);`: informa ao compilador o tipo de retorno e o parâmetro esperado. A chamada é `c = celsius(f);`: executa a função passando f. A definição é `float celsius(float fahr) { return (fahr - 32.0) * 5.0 / 9.0; }`: contém a implementação da conversão.
-b) O protótipo permite verificar quantidade e tipos dos argumentos antes de conhecer a implementação. Sem declaração anterior à chamada, o código é inválido em C moderno e o compilador deve emitir um diagnóstico; não é seguro pressupor parâmetros e retorno.
-c) O tipo da função é float, pois ela retorna um valor float. O tipo do retorno descreve o resultado fornecido ao chamador; os tipos dos parâmetros descrevem os valores de entrada.
+01. a) O protótipo da função é float celsius(float);, que informa ao compilador o tipo de retorno e o parâmetro recebido. A chamada acontece em c = celsius(f);, quando a função é executada com o valor de f. A definição é float celsius(float fahr) { return (fahr - 32.0) * 5.0 / 9.0; }`, onde está o cálculo realizado pela função.
 
-02. a) Um return devolve diretamente um valor. O programador tentou devolver soma e média ao mesmo tempo, mas `return soma, media;` utiliza o operador vírgula: avalia soma e depois media, devolvendo apenas media.
-b) `return;` encerra antecipadamente a função void, sem devolver valor. Não é obrigatório no final de uma função void, pois ela termina ao alcançar o fim do bloco.
-c) Uma solução com resultados separados é:
+b) O protótipo permite ao compilador verificar se a função está sendo chamada com a quantidade e os tipos corretos de argumentos. Se fosse omitido e a função estivesse definida depois da `main()`, o compilador não teria sua declaração disponível no momento da chamada. Em versões modernas de C, isso gera um diagnóstico de erro, pois uma função deve ser declarada antes de ser utilizada.
+
+c) A função celsius() é do tipo float, pois retorna um valor real utilizando o comando return. O tipo de uma função é determinado pelo valor que ela devolve ao programa, enquanto os parâmetros indicam apenas os dados que ela recebe para realizar o processamento.
+
+02. a) Uma função em C pode devolver diretamente apenas um valor por meio de return. O programador pretendia retornar a soma e a média dos três números. Porém, em return soma, media;, o operador vírgula avalia as duas expressões e o resultado retornado é apenas `media`. Portanto, a função não devolve os dois valores como pretendido.
+
+b) O comando return; encerra imediatamente a execução da função imprime_mensagem() sem devolver um valor. Nesse exemplo, quando `erro` é negativo, a mensagem de erro é impressa e a função termina. Ele não é obrigatório no final de uma função `void`, pois a execução termina automaticamente ao chegar à última instrução.
+
+c) As funções podem ser reescritas da seguinte forma:
 
 int calcularMedia(int a, int b, int c) {
     return (a + b + c) / 3;
@@ -14,20 +18,45 @@ int calcularSoma(int a, int b, int c) {
     return a + b + c;
 }
 
-Cada função devolve um único inteiro diretamente por return. Para devolver vários resultados por uma única função, outras possibilidades incluem ponteiros ou estruturas.
+A primeira função retorna apenas a média inteira dos três valores, enquanto a segunda retorna somente a soma. Utilizando apenas o return para devolver diretamente resultados, são necessárias duas funções para obter esses dois valores separadamente. Também seria possível utilizar ponteiros ou uma estrutura para disponibilizar múltiplos resultados.
 
-03. a) `void exibe_mensagem(char* msg);` recebe um ponteiro para char e não devolve valor. `int obter_codigo(void);` não recebe argumentos e devolve int. `void limpar_tela(void);` não recebe argumentos nem devolve valor.
-b) Uma função com retorno fornece um resultado para outra parte do programa, como calcular uma soma. Um procedimento void apenas realiza uma ação, como exibir uma mensagem.
-c) `x = limpar_tela();` é inválido: como limpar_tela retorna void, não existe valor para atribuir a x. A chamada correta é `limpar_tela();`.
+03. a) A função void exibe_mensagem(char* msg); recebe um parâmetro do tipo ponteiro para char e não retorna valor. A função int obter_codigo(void); não recebe parâmetros e retorna um inteiro. Já void limpar_tela(void); não recebe parâmetros e não retorna nenhum valor.
 
-04. a) O caso base é `n == 0`, que retorna 1. O passo recursivo é `n * fatorial(n - 1)`. Sem o caso base, as chamadas não teriam uma condição adequada de parada e poderiam estourar a pilha.
-b) Empilhamento: fatorial(4) chama fatorial(3), que chama fatorial(2), que chama fatorial(1), que chama fatorial(0). No caso base, fatorial(0) devolve 1. Desempilhamento: fatorial(1) devolve 1; fatorial(2) devolve 2; fatorial(3) devolve 6; fatorial(4) devolve 24.
-c) Cada chamada cria um novo registro na pilha com parâmetros, informações locais e ponto de retorno. O desempilhamento ocorre quando as chamadas terminam. Uma recursão sem condição de parada pode ocupar toda a memória destinada à pilha e causar falha.
+b) Uma função com retorno devolve um resultado que pode ser armazenado em uma variável ou utilizado em uma expressão. Por exemplo, uma função que calcula a soma de dois números. Uma função void, também chamada de procedimento, executa uma tarefa sem devolver um resultado diretamente, como imprimir uma mensagem na tela.
 
-05. a) `SQR(2+3)` imprime 25, pois vira `((2+3)*(2+3))`. `DOBRO(2+3)` imprime 11, pois vira `2+3*2` e a multiplicação tem precedência maior que a adição. Os parênteses evitam essa mudança de significado.
-b) #define é uma diretiva do pré-processador, encerrada pelo fim da linha, e não precisa de ponto e vírgula. Identificadores em maiúsculas são convenção para distinguir macros e constantes.
-c) `#define PRN (n) printf("%d", n)` tem um espaço entre PRN e o parêntese, portanto não define uma macro com parâmetros. O correto é `#define PRN(n) printf("%d", (n))`. Uma macro substitui texto no pré-processamento, ao passo que uma função recebe argumentos segundo tipos declarados e executa seu código durante o programa.
+c) Não. A chamada x = limpar_tela(); é inválida porque limpar_tela() é do tipo void e não retorna nenhum valor para ser atribuído à variável x. A forma correta de chamá-la é limpar_tela();.
 
-06. a) `#include <stdio.h>` costuma buscar um cabeçalho da biblioteca padrão nos diretórios configurados do compilador. `#include "areas.h"` procura um cabeçalho do projeto, em geral começando pelo local do arquivo que faz a inclusão, conforme as regras do compilador.
-b) `#undef SOMA` cancela a definição dessa macro nas linhas seguintes. `#undef SOMA(x,y)` não é a forma correta: #undef recebe somente o nome da macro.
-c) Sem DEBUG definido, o trecho do #else é selecionado e imprime `Modo normal`, desde que esteja em um contexto executável, como dentro de main(). A seleção é feita no pré-processamento. As diretivas não são instruções executadas pelo programa e não permanecem como tais no executável.
+04. a) O caso base é n == 0, quando a função retorna 1 e encerra a recursão. O passo recursivo é n * fatorial(n - 1), que chama a própria função com um valor menor. Sem o caso base, as chamadas continuariam indefinidamente até provocar um possível estouro da pilha de execução.
+
+b) O rastreamento de fatorial(4) ocorre em duas etapas.
+
+Empilhamento:
+fatorial(4) = 4 * fatorial(3)
+fatorial(3) = 3 * fatorial(2)
+fatorial(2) = 2 * fatorial(1)
+fatorial(1) = 1 * fatorial(0)
+fatorial(0) = 1
+
+Desempilhamento:
+
+fatorial(0) = 1
+fatorial(1) = 1 * 1 = 1
+fatorial(2) = 2 * 1 = 2
+fatorial(3) = 3 * 2 = 6
+fatorial(4) = 4 * 6 = 24
+
+Resultado final é 24.
+
+c) A cada chamada recursiva, uma nova informação de execução é armazenada na pilha, incluindo os parâmetros e o ponto para onde a função deve retornar. Quando o caso base é alcançado, as chamadas começam a ser finalizadas na ordem inversa. Se não existir um caso base adequado, a pilha pode continuar crescendo até esgotar a memória disponível, causando uma falha no programa.
+
+05. a) A primeira instrução imprime 25, pois SQR(2+3) é expandida para ((2+3)*(2+3)), resultando em 5 * 5. A segunda imprime 11, pois DOBRO(2+3) é expandida para 2+3*2, e a multiplicação é realizada antes da soma. A diferença acontece porque SQR utiliza parênteses de proteção, enquanto DOBRO não utiliza.
+
+b) A diretiva #define não termina com ponto e vírgula porque é uma instrução do pré-processador, e não um comando comum da linguagem C. Por convenção, utilizamos nomes em letras maiúsculas para facilitar a identificação de constantes e macros e diferenciá-las de variáveis e funções.
+
+c) A definição #define PRN (n) printf("%d", n) está incorreta como macro com argumento porque existe um espaço entre PRN e (. Dessa forma, ela é interpretada como uma macro sem parâmetros. A forma correta é: #define PRN(n) printf("%d", (n)). Uma macro com argumentos realiza substituição de texto durante o pré-processamento, enquanto uma função comum recebe argumentos e executa seu código durante a execução do programa. Além disso, funções permitem verificação de tipos dos parâmetros, enquanto macros não realizam essa verificação da mesma maneira.
+
+06. a) A diretiva #include <stdio.h> é utilizada normalmente para incluir arquivos de cabeçalho da biblioteca padrão da linguagem C. Já #include "areas.h" é utilizada para incluir um arquivo de cabeçalho criado pelo programador, procurando inicialmente nos locais destinados aos arquivos do projeto.
+
+b) A diretiva #undef SOMA remove a definição da macro SOMA, impedindo sua expansão nas partes seguintes do código. A forma #undef SOMA(x,y) está incorreta porque #undef recebe apenas o nome do identificador, sem a lista de parâmetros.
+
+c) Se DEBUG não estiver definido, a mensagem impressa será Modo normal. Isso acontece porque #ifdef DEBUG verifica se o identificador foi definido e, caso não tenha sido, seleciona o trecho associado ao #else`. Essa decisão é tomada durante o pré-processamento, antes da compilação propriamente dita. As diretivas são processadas nessa etapa e não aparecem como instruções no executável final.
